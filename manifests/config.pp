@@ -25,7 +25,7 @@ class crashdump::config {
       # XXX this will need an onlyif =>
       exec { 'update grub config':
         command  => "grubby --update-kernel=ALL --args=\"crashkernel=${crashkernel_size}\"",
-        pwd      => '/',
+        cwd      => '/',
         path     => '/sbin:/bin:/usr/bin:/usr/sbin',
         provider => 'posix',
       }
