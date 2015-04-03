@@ -1,4 +1,4 @@
-#   Copyright 2013 Brainsware
+#   Copyright 2015 Brainsware
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -15,12 +15,19 @@
 require 'spec_helper'
 
 describe 'crashdump', :type => :class do
-  let(:title) { 'crashdump' }
+  context 'supported operating systems' do
+    on_supported_os.each do |os, facts|
+      context "on #{os} #{facts}" do
+        let(:facts) do
+          facts
+        end
 
-  case $osfamily
-  when 'Debian'
-    it { should contain_package('linux-crashdump') }
-  when 'RedHat'
-    it { should contain_package('crash') }
+        context 'it should install crashdump' do
+          let(:title) { 'crashdump' }
+
+          it { should contain_package('kexec-tools') }
+        end
+      end
+    end
   end
 end

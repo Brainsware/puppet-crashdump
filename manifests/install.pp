@@ -14,14 +14,12 @@
 #
 # === Copyright
 #
-# Copyright 2013 Brainsware
+# Copyright 2015 Brainsware
 #
 class crashdump::install {
 
-  include crashdump::params
-
-  package { $crashdump::params::package_name:
-    ensure => $crashdump::params::package_ensure,
+  package { $crashdump::package_name:
+    ensure => $crashdump::package_ensure,
   }
 
 }
