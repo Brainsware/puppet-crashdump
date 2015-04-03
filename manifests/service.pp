@@ -14,14 +14,14 @@
 #
 # === Copyright
 #
-# Copyright 2013 Brainsware
+# Copyright 2015 Brainsware
 #
 class crashdump::service {
 
-  include crashdump::params
-
-  service { $crashdump::params::service_name:
-    enable    => $crashdump::params::service_enable,
+  service { 'crashdump':
+    ensure => $::crashdump::service_ensure,
+    enable => $::crashdump::service_enable,
+    name   => $::crashdump::service_name,
   }
 
 }

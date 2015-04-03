@@ -10,7 +10,7 @@
 #
 # === Copyright
 #
-# Copyright 2014 Brainsware
+# Copyright 2015 Brainsware
 #
 class crashdump::params {
 
@@ -24,9 +24,6 @@ class crashdump::params {
     'trusty' => 'kexec-load',
     default  => 'kdump',
   }
-
-  $service_enable =  true
-  $service_ensure = 'running'
 
   # These rounded numbers (1800, 3800, ...) are based on the values of
   # memorysize_mb on systems that nominally have 2GB, 4GB, ... of RAM. 
