@@ -18,11 +18,13 @@
 #
 class crashdump::config {
 
+  $crashkernel_size = $crashdump::crashkernel_size
+
   case $::osfamily {
     'RedHat' : {
       # XXX this will need an onlyif =>
       exec { 'update grub config':
-        command  => 'grubby --update-kernel=ALL --args="crashkernel=128M"',
+        command  => "grubby --update-kernel=ALL --args=\"crashkernel=${crashkernel_size}\"",
         pwd      => '/',
         path     => '/sbin:/bin:/usr/bin:/usr/sbin',
         provider => 'posix',
@@ -39,10 +41,10 @@ class crashdump::config {
         # way of managing a single part of a single line in a configuration file
         # or any sensible hooks for grub that everyone uses, we keep it simple.
         'Ubuntu' : {
-          file_line { 'crashkernel=128M':
+          file_line { 'crashkernel_size':
             path  => '/etc/grub.d/10_linux',
             match => '    GRUB_CMDLINE_EXTRA="\$GRUB_CMDLINE_EXTRA crashkernel=.*',
-            line  => '    GRUB_CMDLINE_EXTRA="$GRUB_CMDLINE_EXTRA crashkernel=128M"',
+            line  => "    GRUB_CMDLINE_EXTRA=\"\$GRUB_CMDLINE_EXTRA crashkernel=${crashkernel_size}\"",
           }
         }
         default : {

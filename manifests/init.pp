@@ -16,7 +16,9 @@
 #
 # Copyright 2013 Brainsware
 #
-class crashdump {
+class crashdump (
+  $crashkernel_size = $crashdump::params::crashkernel_size,
+) inherits crashdump::params {
 
   anchor { 'crashdump::begin': } ->
   class { 'crashdump::config': } ->

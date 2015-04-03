@@ -28,4 +28,16 @@ class crashdump::params {
   $service_enable =  true
   $service_ensure = 'running'
 
+  # These rounded numbers (1800, 3800, ...) are based on the values of
+  # memorysize_mb on systems that nominally have 2GB, 4GB, ... of RAM. 
+  
+  # XXX: This logic might be slightly flawed because memorysize_mb shrinks by
+  # the amount of reserved memory for the crashkernel.
+  if $::memorysize_mb <= 1800 {
+    $crashkernel_size = '128M'
+  } elsif $::memorysize_mb > 1800 and $::memorysize_mb <= 3800 {
+    $crashkernel_size = '256M'
+  } elsif $::memorysize_mb > 3800 {
+    $crashkernel_size = '512M'
+  } # ... this might need to be extended for systems with even more memory.
 }
