@@ -20,10 +20,13 @@ class crashdump::params {
     'RedHat' => [ 'crash', 'kexec-tools' ],
   }
 
+  # This is not a running service, it just loads the crash kernel
+  $service_ensure = undef
   $service_name   = $::lsbdistcodename? {
     'trusty' => 'kexec-load',
     default  => 'kdump',
   }
+  $service_enable = true
 
   # These rounded numbers (1800, 3800, ...) are based on the values of
   # memorysize_mb on systems that nominally have 2GB, 4GB, ... of RAM. 

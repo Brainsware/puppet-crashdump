@@ -19,16 +19,29 @@
 class crashdump (
   $package_name   = $::crashdump::params::package_name,
   $package_ensure = $::crashdump::params::package_ensure,
-  $service_name   = $::crashdump::service_name,
-  $service_enable = true,
-  $service_ensure = 'running',
+  $service_name   = $::crashdump::params::service_name,
+  $service_enable = $::crashdump::params::service_enable,
+  $service_ensure = $::crashdump::params::service_ensure,
   $crashkernel_size = $crashdump::params::crashkernel_size,
 ) inherits crashdump::params {
 
+  include 'crashdump::install'
+  include 'crashdump::config'
+  include 'crashdump::service'
+
   anchor { 'crashdump::begin': } ->
-  class { 'crashdump::config': } ->
-  class { 'crashdump::install': } ->
-  class { 'crashdump::service': } ->
-  anchor { 'crashdump::end':}
+  Class['crashdump::install'] ->
+  Class['crashdump::config'] ->
+  Class['crashdump::service'] ->
+  anchor { 'crashdump::end': }
+
+  Class['crashdump::install']
+  -> Class['crashdump::config']
+
+  Class['crashdump::install']
+  ~> Class['crashdump::service']
+
+  Class['crashdump::config']
+  ~> Class['crashdump::service']
 
 }
