@@ -25,7 +25,7 @@ describe 'crashdump', :type => :class do
         context 'it should install crashdump' do
           let(:title) { 'crashdump' }
 
-          it { should contain_package('kexec-tools') }
+          it { is_expected.to contain_package('kexec-tools') }
         end
       end
     end

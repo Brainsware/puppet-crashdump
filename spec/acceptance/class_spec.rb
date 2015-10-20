@@ -1,7 +1,6 @@
 require 'spec_helper_acceptance'
 
 describe 'crashdump class' do
-
   context 'default parameters' do
     # Using puppet_apply as a helper
     it 'should work with no errors' do
@@ -15,7 +14,7 @@ describe 'crashdump class' do
     end
 
     describe package('kexec-tools') do
-      it { should be_installed }
+      it { is_expected.to be_installed }
     end
   end
 end
