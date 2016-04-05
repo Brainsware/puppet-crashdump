@@ -64,6 +64,13 @@ class crashdump::config {
                 mode    => '0644',
                 content => template("${module_name}/kexec-tools.cfg.erb"),
               }
+
+              # Need to enable the use of kdump. This requires a reboot, of course.
+              file_line { 'use_kdump':
+                path  => '/etc/default/kdump-tools',
+                match => 'USE_KDUMP=.*',
+                line  => 'USE_KDUMP=1',
+              }
             }
             default: {
               # Nothing yet, but if Ubuntu 16.04 works the same as 14.04 then we
