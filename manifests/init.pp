@@ -28,6 +28,7 @@ class crashdump (
   include 'crashdump::install'
   include 'crashdump::config'
   include 'crashdump::service'
+  include 'crashdump::update_grub'
 
   anchor { 'crashdump::begin': } ->
   Class['crashdump::install'] ->

@@ -44,9 +44,10 @@ class crashdump::config {
               # way of managing a single part of a single line in a configuration file
               # or any sensible hooks for grub that everyone uses, we keep it simple.
               file_line { 'crashkernel_size':
-                path  => '/etc/grub.d/10_linux',
-                match => '    GRUB_CMDLINE_EXTRA="\$GRUB_CMDLINE_EXTRA crashkernel=.*',
-                line  => "    GRUB_CMDLINE_EXTRA=\"\$GRUB_CMDLINE_EXTRA crashkernel=${crashkernel_size}\"",
+                path   => '/etc/grub.d/10_linux',
+                match  => '    GRUB_CMDLINE_EXTRA="\$GRUB_CMDLINE_EXTRA crashkernel=.*',
+                line   => "    GRUB_CMDLINE_EXTRA=\"\$GRUB_CMDLINE_EXTRA crashkernel=${crashkernel_size}\"",
+                notify => Class['::crashdump::update_grub'],
               }
             }
             '14.04' : {
@@ -63,6 +64,7 @@ class crashdump::config {
                 group   => 'root',
                 mode    => '0644',
                 content => template("${module_name}/kexec-tools.cfg.erb"),
+                notify  => Class['::crashdump::update_grub'],
               }
 
               # Need to enable the use of kdump. This requires a reboot, of course.
