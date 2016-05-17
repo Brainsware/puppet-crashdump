@@ -40,4 +40,9 @@ class crashdump::params {
   } elsif $::memorysize_mb > '3800' {
     $crashkernel_size = '512M'
   } # ... this might need to be extended for systems with even more memory.
+
+  $update_grub_cmd = $::operatingsystem ? {
+    'Ubuntu' => '/usr/sbin/update-grub',
+    default  => undef
+  }
 }
