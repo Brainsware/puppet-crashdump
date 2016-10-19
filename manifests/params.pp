@@ -23,8 +23,8 @@ class crashdump::params {
   # This is not a running service, it just loads the crash kernel
   $service_ensure = undef
   $service_name   = $::lsbdistcodename? {
-    'trusty' => 'kexec-load',
-    default  => 'kdump',
+    /(trusty|xenial)/ => 'kexec-load',
+    default           => 'kdump',
   }
   $service_enable = true
 

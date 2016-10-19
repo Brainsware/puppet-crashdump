@@ -50,7 +50,7 @@ class crashdump::config {
                 notify => Class['::crashdump::update_grub'],
               }
             }
-            '14.04' : {
+            '14.04', '16.04' : {
               # On Ubuntu 14.04 the kexec-tools package installs
               # /etc/default/grub.d/kexec-tools.cfg. This is the place to set
               # the crashkernel size. The default size is *still* way too small
@@ -75,9 +75,9 @@ class crashdump::config {
               }
             }
             default: {
-              # Nothing yet, but if Ubuntu 16.04 works the same as 14.04 then we
-              # will manage /etc/default/grub.d/kexec-tools.cfg here for both
-              # 14.04 and 16.04.
+              # Nothing yet, but if Ubuntu 18.04 works the same as 14.04/16.04 then we
+              # will manage /etc/default/grub.d/kexec-tools.cfg here for 14.04,
+              # 16.04 and 18.04.
             }
           }
         }
