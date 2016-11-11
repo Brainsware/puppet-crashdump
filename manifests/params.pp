@@ -33,9 +33,9 @@ class crashdump::params {
 
   # XXX: This logic might be slightly flawed because memorysize_mb shrinks by
   # the amount of reserved memory for the crashkernel.
-  if $::memorysize_mb <= '1800' {
+  if $::memorysize_mb <= '1600' {
     $crashkernel_size = '128M'
-  } elsif $::memorysize_mb > '1800' and $::memorysize_mb <= '3800' {
+  } elsif $::memorysize_mb > '1600' and $::memorysize_mb <= '3800' {
     $crashkernel_size = '256M'
   } elsif $::memorysize_mb > '3800' {
     $crashkernel_size = '512M'
